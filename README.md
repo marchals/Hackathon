@@ -1,4 +1,7 @@
 # Hackathon_nj_transit
+https://www.kaggle.com/c/2ia-m2-advanced-ml-2019-hackathon/
+<br>
+<br>
 
 ## NJ transit data
 https://github.com/pranavbadami/njtransit
