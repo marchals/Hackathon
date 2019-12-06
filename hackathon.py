@@ -141,7 +141,7 @@ normalize_df_percentagewise(test_data)
 # Normalization by max(stop_sequence) per train
 data1 = pd.read_csv("/content/train.csv")
 test1 = pd.read_csv("/content/test_student.csv")
-Trains = data.train_id.unique()
+
 def normalize_trainwise(df, List) :
   for element in List :
     col = "train_" + str(element)
@@ -149,6 +149,11 @@ def normalize_trainwise(df, List) :
     d_list = df.loc[mask]
     max_list = max(d_list['stop_sequence'])
     df.loc[mask, 'stop_sequence'] = d_list['stop_sequence'].apply(lambda x: x/max_list)
+
+Train_d = data1.train_id.unique()
+Train_t = test1.train_id.unique()
+normalize_linewise(dataset, Train_d)
+normalize_linewise(test_data, Train_t)
 
 # Normalization by max(stop_sequence) per line
 data2 = pd.read_csv("/content/train.csv")
