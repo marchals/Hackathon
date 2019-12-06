@@ -203,10 +203,19 @@ def build_model():
 
   from sklearn.metrics import mean_squared_error
 
-  model.compile(loss= "mean_squared_error" , optimizer="adam", metrics=["mean_squared_error"])
+  model.compile(loss= "mean_squared_error" , optimizer=keras.optimizers.Adam(0.0002, 0.5), metrics=["mean_squared_error"])
   return model
 
 
 model = build_model()
 
-model.fit(dataset, labels, epochs=25)
+model.fit(dataset, labels, epochs=100, batch_size=1000)
+
+test_predictions = model.predict(test_data).flatten()
+
+import csv
+with open('testPierre.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(["Id"]+["Predicted"])
+    for k in range (0,len(test_predictions)):
+      writer.writerow([k]+[test_predictions[k]])
