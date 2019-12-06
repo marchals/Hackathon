@@ -139,9 +139,31 @@ normalize_df_percentagewise(dataset)
 normalize_df_percentagewise(test_data)
 
 # Normalization by max(stop_sequence) per train
+data1 = pd.read_csv("/content/train.csv")
+test1 = pd.read_csv("/content/test_student.csv")
+Trains = data.train_id.unique()
+def normalize_trainwise(df, List) :
+  for element in List :
+    col = "train_" + str(element)
+    mask = (df[col] == 1)
+    d_list = df.loc[mask]
+    max_list = max(d_list['stop_sequence'])
+    df.loc[mask, 'stop_sequence'] = d_list['stop_sequence'].apply(lambda x: x/max_list)
 
 # Normalization by max(stop_sequence) per line
 data2 = pd.read_csv("/content/train.csv")
+test2 = pd.read_csv("/content/test_student.csv")
+def normalize_linewise(df, List) :
+  for element in List :
+    mask = (df[element] == 1)
+    d_list = df.loc[mask]
+    max_list = max(d_list['stop_sequence'])
+    df.loc[mask, 'stop_sequence'] = d_list['stop_sequence'].apply(lambda x: x/max_list)
+
+Line_d = data2.line.unique()
+Line_t = test2.line.unique()
+normalize_linewise(dataset, Line_d)
+normalize_linewise(test_data, Line_t)
 
 dataset.head()
 
@@ -182,4 +204,4 @@ def build_model():
 
 model = build_model()
 
-model.fit(dataset, labels, epochs=5)
+model.fit(dataset, labels, epochs=25)
