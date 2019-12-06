@@ -152,8 +152,8 @@ def normalize_trainwise(df, List) :
 
 Train_d = data1.train_id.unique()
 Train_t = test1.train_id.unique()
-normalize_linewise(dataset, Train_d)
-normalize_linewise(test_data, Train_t)
+normalize_trainwise(dataset, Train_d)
+normalize_trainwise(test_data, Train_t)
 
 # Normalization by max(stop_sequence) per line
 data2 = pd.read_csv("/content/train.csv")
